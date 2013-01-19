@@ -2,8 +2,8 @@
 
 = Introduction =
 
-1) Maven 3.*
-2) MySQL 5.1
-3) Subversion 1.6 - 1.7
-4) Intellij IDEA 12 (need not be)
-5) GlassFish (recommended) or other.
+  * Maven 3.*
+  * MySQL 5.1
+  * Subversion 1.6 - 1.7
+  * Intellij IDEA 12 (need not be)
+  * GlassFish (recommended) or other.
