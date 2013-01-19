@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ups:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ups-1.1.war">
+      <element id="artifact" artifact-name="ups:war exploded" />
+    </root>
+  </artifact>
+</component>
