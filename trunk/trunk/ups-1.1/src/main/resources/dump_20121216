@@ -1,0 +1,254 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.5.28
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema ups
+--
+
+CREATE DATABASE IF NOT EXISTS ups;
+USE ups;
+
+--
+-- Definition of table `city`
+--
+
+DROP TABLE IF EXISTS `city`;
+CREATE TABLE `city` (
+  `city_PK` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `country_PK` bigint(20) NOT NULL,
+  PRIMARY KEY (`city_PK`),
+  KEY `FK200D8BDDEECA54` (`country_PK`),
+  CONSTRAINT `FK200D8BDDEECA54` FOREIGN KEY (`country_PK`) REFERENCES `country` (`country_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `city`
+--
+
+/*!40000 ALTER TABLE `city` DISABLE KEYS */;
+/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+
+
+--
+-- Definition of table `country`
+--
+
+DROP TABLE IF EXISTS `country`;
+CREATE TABLE `country` (
+  `country_PK` bigint(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`country_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `country`
+--
+
+/*!40000 ALTER TABLE `country` DISABLE KEYS */;
+/*!40000 ALTER TABLE `country` ENABLE KEYS */;
+
+
+--
+-- Definition of table `education`
+--
+
+DROP TABLE IF EXISTS `education`;
+CREATE TABLE `education` (
+  `education_PK` bigint(20) NOT NULL,
+  `year_admission` datetime DEFAULT NULL,
+  `faculty_PK` bigint(20) NOT NULL,
+  `specialty_PK` bigint(20) NOT NULL,
+  `university_PK` bigint(20) NOT NULL,
+  PRIMARY KEY (`education_PK`),
+  KEY `FK661D8788C53EFAD4` (`specialty_PK`),
+  KEY `FK661D878874273083` (`education_PK`),
+  KEY `FK661D8788603B4E20` (`university_PK`),
+  KEY `FK661D87883BCD2F94` (`faculty_PK`),
+  CONSTRAINT `FK661D87883BCD2F94` FOREIGN KEY (`faculty_PK`) REFERENCES `faculty` (`faculty_PK`),
+  CONSTRAINT `FK661D8788603B4E20` FOREIGN KEY (`university_PK`) REFERENCES `university` (`university_PK`),
+  CONSTRAINT `FK661D878874273083` FOREIGN KEY (`education_PK`) REFERENCES `user` (`user_PK`),
+  CONSTRAINT `FK661D8788C53EFAD4` FOREIGN KEY (`specialty_PK`) REFERENCES `specialty` (`specialty_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `education`
+--
+
+/*!40000 ALTER TABLE `education` DISABLE KEYS */;
+/*!40000 ALTER TABLE `education` ENABLE KEYS */;
+
+
+--
+-- Definition of table `faculty`
+--
+
+DROP TABLE IF EXISTS `faculty`;
+CREATE TABLE `faculty` (
+  `faculty_PK` bigint(20) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `university_PK` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`faculty_PK`),
+  KEY `FK22243244603B4E20` (`university_PK`),
+  CONSTRAINT `FK22243244603B4E20` FOREIGN KEY (`university_PK`) REFERENCES `university` (`university_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faculty`
+--
+
+/*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
+/*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
+
+
+--
+-- Definition of table `specialty`
+--
+
+DROP TABLE IF EXISTS `specialty`;
+CREATE TABLE `specialty` (
+  `specialty_PK` bigint(20) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `faculty_PK` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`specialty_PK`),
+  KEY `FK9AFC04FE3BCD2F94` (`faculty_PK`),
+  CONSTRAINT `FK9AFC04FE3BCD2F94` FOREIGN KEY (`faculty_PK`) REFERENCES `faculty` (`faculty_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `specialty`
+--
+
+/*!40000 ALTER TABLE `specialty` DISABLE KEYS */;
+/*!40000 ALTER TABLE `specialty` ENABLE KEYS */;
+
+
+--
+-- Definition of table `university`
+--
+
+DROP TABLE IF EXISTS `university`;
+CREATE TABLE `university` (
+  `university_PK` bigint(20) NOT NULL,
+  `description` longtext,
+  `name` varchar(255) NOT NULL,
+  `house_number` varchar(255) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city_PK` bigint(20) NOT NULL,
+  PRIMARY KEY (`university_PK`),
+  KEY `FK821AC6AE665AB180` (`city_PK`),
+  CONSTRAINT `FK821AC6AE665AB180` FOREIGN KEY (`city_PK`) REFERENCES `city` (`city_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `university`
+--
+
+/*!40000 ALTER TABLE `university` DISABLE KEYS */;
+/*!40000 ALTER TABLE `university` ENABLE KEYS */;
+
+
+--
+-- Definition of table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `user_PK` bigint(20) NOT NULL,
+  `day_birthday` datetime DEFAULT NULL,
+  `email` varchar(64) NOT NULL,
+  `firstname` varchar(20) NOT NULL,
+  `lastname` varchar(20) NOT NULL,
+  `middle_name` varchar(20) DEFAULT NULL,
+  `password` longtext NOT NULL,
+  `role_PK` bigint(20) DEFAULT NULL,
+  `role_FK` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`user_PK`),
+  KEY `FK285FEB9043010B` (`role_PK`),
+  KEY `FK285FEB9042FFD5` (`role_FK`),
+  CONSTRAINT `FK285FEB9042FFD5` FOREIGN KEY (`role_FK`) REFERENCES `user_role` (`role_PK`),
+  CONSTRAINT `FK285FEB9043010B` FOREIGN KEY (`role_PK`) REFERENCES `userrole` (`role_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`user_PK`,`day_birthday`,`email`,`firstname`,`lastname`,`middle_name`,`password`,`role_PK`,`role_FK`) VALUES 
+ (2,NULL,'user1aiksssi@mail.com','testuser','testuser',NULL,'11856895',NULL,1),
+ (4,NULL,'user','user','user',NULL,'123',NULL,1),
+ (5,NULL,'divays27@gmail.com','Alexander','Barchuk',NULL,'zuif1b3e',NULL,1),
+ (6,NULL,'gfjhk','Vikki','Moiseenko',NULL,'nbv',NULL,1),
+ (7,NULL,'vikki','Vikki','Moiseenko',NULL,'123',NULL,1);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+
+--
+-- Definition of table `user_role`
+--
+
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+  `role_PK` bigint(20) NOT NULL,
+  `authority` varchar(45) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`role_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_role`
+--
+
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` (`role_PK`,`authority`,`description`) VALUES 
+ (1,'ROLE_STUDENT','student'),
+ (2,'ROLE_TEACHER','teacher'),
+ (3, 'ROLE_ANONYMOUS', 'anonymous');
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+
+
+--
+-- Definition of table `userrole`
+--
+
+DROP TABLE IF EXISTS `userrole`;
+CREATE TABLE `userrole` (
+  `role_PK` bigint(20) NOT NULL,
+  `authority` varchar(45) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`role_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userrole`
+--
+
+/*!40000 ALTER TABLE `userrole` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userrole` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

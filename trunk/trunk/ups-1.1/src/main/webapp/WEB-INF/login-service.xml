@@ -1,0 +1,56 @@
+<beans xmlns='http://www.springframework.org/schema/beans'
+       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+       xsi:schemaLocation='http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd'>
+
+    <bean id='dataSource' class='com.mchange.v2.c3p0.ComboPooledDataSource'>
+        <!--Driver name to connect to the database-->
+        <property name='driverClass'>
+            <value>${connection.driver_class}</value>
+        </property>
+        <!--DB URL-->
+        <property name='jdbcUrl'>
+            <value>${connection.url}</value>
+        </property>
+        <!--DB User used to connect to the schema-->
+        <property name='user'>
+            <value>${connection.username}</value>
+        </property>
+        <!--Password required to access for the above user-->
+        <property name='password'>
+            <value>${connection.password}</value>
+        </property>
+        <!-- configuration pool via c3p0-->
+        <property name='acquireIncrement'>
+            <value>${connection.c3p0.acquireIncrement}</value>
+        </property>
+        <property name='idleConnectionTestPeriod'>
+            <value>${connection.c3p0.idleConnectionTestPeriod}</value>
+            <!-- seconds -->
+        </property>
+        <property name='maxPoolSize'>
+            <value>${connection.c3p0.maxPoolSize}</value>
+        </property>
+        <property name='maxStatements'>
+            <value>${connection.c3p0.maxStatements}</value>
+        </property>
+        <property name='minPoolSize'>
+            <value>${connection.c3p0.minPoolSize}</value>
+        </property>
+        <property name='initialPoolSize'>
+            <value>${connection.c3p0.initialPoolSize}</value>
+        </property>
+        <property name='maxIdleTime'>
+            <value>${connection.c3p0.maxIdleTime}</value>
+        </property>
+        <property name='acquireRetryAttempts'>
+            <value>${connection.c3p0.acquireRetryAttempts}</value>
+        </property>
+        <property name='acquireRetryDelay'>
+            <value>${connection.c3p0.acquireRetryDelay}</value>
+        </property>
+        <property name='breakAfterAcquireFailure'>
+            <value>${connection.c3p0.breakAfterAcquireFailure}</value>
+        </property>
+    </bean>
+</beans>
