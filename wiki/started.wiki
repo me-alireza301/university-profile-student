@@ -1,22 +1,9 @@
-
 #summary What you need for this project?
 
 = Introduction =
 
 1) Maven 3.*
-
 2) MySQL 5.1
-
 3) Subversion 1.6 - 1.7
-
 4) Intellij IDEA 12 (need not be)
-
 5) GlassFish (recommended) or other.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
