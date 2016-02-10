@@ -1,0 +1,1 @@
+This project is designed for educational institutions. It will provide an opportunity to simulate the work of the institution in the form of online university.
